@@ -14,3 +14,8 @@ logging:
   level:
     root: INFO
 
+file:
+  csv:
+    product: product.csv
+    size: size-1.csv
+    stock: stock.csv
