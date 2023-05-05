@@ -8,6 +8,7 @@ import com.ecommerce.filterproducts.domain.port.file.system.IProductFileSystem;
 import com.ecommerce.filterproducts.domain.port.file.system.ISizeFileSystem;
 import com.ecommerce.filterproducts.domain.port.file.system.IStockFileSystem;
 import com.ecommerce.filterproducts.domain.port.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ProductFinder implements ProductService {
     private final IStockFileSystem IStockFileSystem;
     private final ISizeFileSystem ISizeFileSystem;
 
-    public ProductFinder(com.ecommerce.filterproducts.domain.port.file.system.IProductFileSystem iProductFileSystem, com.ecommerce.filterproducts.domain.port.file.system.IStockFileSystem iStockFileSystem, com.ecommerce.filterproducts.domain.port.file.system.ISizeFileSystem iSizeFileSystem) {
+    public ProductFinder(IProductFileSystem iProductFileSystem, IStockFileSystem iStockFileSystem, ISizeFileSystem iSizeFileSystem) {
         IProductFileSystem = iProductFileSystem;
         IStockFileSystem = iStockFileSystem;
         ISizeFileSystem = iSizeFileSystem;
