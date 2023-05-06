@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -37,9 +38,9 @@ class ProductFinderTest {
 
     @Test
     public void shouldGetAllVisibleIds() throws IOException {
-        productFinder.getProductsId();
+        productFinder.getVisibleProducts();
         verify(productFileSystem).getAll();
-        verify(sizeFileSystem).getAll();
-        verify(stockFileSystem).getAll();
+        verify(sizeFileSystem).getAllAndJoin(any());
+        verify(stockFileSystem).getAllMapped();
     }
 }

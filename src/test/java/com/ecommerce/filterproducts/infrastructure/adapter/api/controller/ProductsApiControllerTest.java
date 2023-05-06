@@ -76,7 +76,7 @@ class ProductsApiControllerTest {
 
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                        .get("/filter-products/api/v1/products/id")
+                        .get("/filter-products/api/v1/visible-products")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(MockMvcResultHandlers.print())
