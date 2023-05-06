@@ -38,6 +38,4 @@ public class ProductFileSystem implements IProductFileSystem {
         return products.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
     }
-
-
 }

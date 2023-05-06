@@ -39,8 +39,8 @@ public interface ProductApi {
     }
 
     /**
-     * GET /products/id : Get products id
-     * Get products id ordered by sequence.
+     * GET /visible-products : Get visible products id
+     * Get visible products id ordered by sequence.
      *
      * @param acceptVersion Header parameter that indicates the API version the client is working with (optional)
      * @param accept        Header parameter that advertises which content types, expressed as MIME types, the client is able to understand (optional)
@@ -48,12 +48,12 @@ public interface ProductApi {
      * or Internal Server Error (status code 500)
      */
     @Operation(
-            operationId = "getProductsId",
-            summary = "Get products id",
-            description = "Get products id ordered by sequence.",
+            operationId = "getVisibleProducts",
+            summary = "Get visible products",
+            description = "Get visible products id ordered by sequence.",
             tags = { "product" },
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Products id response", content = {
+                    @ApiResponse(responseCode = "200", description = "Visible products id response", content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))
                     }),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {
@@ -63,10 +63,10 @@ public interface ProductApi {
     )
     @RequestMapping(
             method = RequestMethod.GET,
-            value = "/products/id",
+            value = "/visible-products",
             produces = { "application/json" }
     )
-    default ResponseEntity<List<Long>> getProductsId(
+    default ResponseEntity<List<Long>> getVisibleProducts(
             @Parameter(name = "Accept-Version", description = "Header parameter that indicates the API version the client is working with", in = ParameterIn.HEADER) @RequestHeader(value = "Accept-Version", required = false) String acceptVersion,
             @Parameter(name = "Accept", description = "Header parameter that advertises which content types, expressed as MIME types, the client is able to understand", in = ParameterIn.HEADER) @RequestHeader(value = "Accept", required = false) String accept
             ) throws IOException {

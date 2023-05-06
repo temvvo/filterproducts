@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,8 +27,7 @@ public class StockFileSystem implements IStockFileSystem {
     @Override
     public Set<Stock> getAll() throws IOException {
         Set<StockFile> stocks = new HashSet<>();
-        FileReader csvFile = new FileReader(getClass().getClassLoader().getResource(fileName).getPath());
-        Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
+        Iterable<CSVRecord> csvRecords = getCsvRecords();
         csvRecords.forEach(record -> {
             stocks.add(
                     StockFile.builder()
@@ -37,5 +38,21 @@ public class StockFileSystem implements IStockFileSystem {
         });
         return stocks.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Map<String,String> getAllMapped() throws IOException {
+        Map<String, String> stocks = new HashMap<>();
+        Iterable<CSVRecord> csvRecords = getCsvRecords();
+        csvRecords.forEach(record -> {
+            stocks.put(cleanRecord(record.get(0)), cleanRecord(record.get(1)));
+        });
+        return stocks;
+    }
+
+    private Iterable<CSVRecord> getCsvRecords() throws IOException {
+        FileReader csvFile = new FileReader(getClass().getClassLoader().getResource(fileName).getPath());
+        Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
+        return csvRecords;
     }
 }

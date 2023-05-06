@@ -55,11 +55,11 @@ public class ProductsApiController implements ProductApi {
     }
 
     @Override
-    public ResponseEntity<List<Long>> getProductsId(
+    public ResponseEntity<List<Long>> getVisibleProducts(
             @Parameter(name = "Accept-Version", description = "Header parameter that indicates the API version the client is working with", in = ParameterIn.HEADER) @RequestHeader(value = "Accept-Version", required = false) String acceptVersion,
             @Parameter(name = "Accept", description = "Header parameter that advertises which content types, expressed as MIME types, the client is able to understand", in = ParameterIn.HEADER) @RequestHeader(value = "Accept", required = false) String accept
             ) throws IOException {
-        return new ResponseEntity<>(service.getProductsId(), HttpStatus.OK);
+        return new ResponseEntity<>(service.getVisibleProducts(), HttpStatus.OK);
     }
 
 }

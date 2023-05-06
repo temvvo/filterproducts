@@ -10,22 +10,23 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@SpringBootTest
 class ProductsApiControllerTest {
 
     @Mock
@@ -70,8 +71,8 @@ class ProductsApiControllerTest {
 
     @Test
     public void testGetProductsId() throws Exception {
-        List<Long> productIds = Arrays.asList(1L, 2L, 3L);
-        Mockito.when(productService.getProductsId()).thenReturn(productIds);
+        List<Long> productIds = Arrays.asList(5L, 1L, 3L);
+        Mockito.when(productService.getVisibleProducts()).thenReturn(productIds);
 
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
@@ -88,8 +89,8 @@ class ProductsApiControllerTest {
                 new TypeReference<List<Long>>() {
                 });
         assertEquals(3, responseProductIds.size());
+        assertTrue(responseProductIds.contains(5L));
         assertTrue(responseProductIds.contains(1L));
-        assertTrue(responseProductIds.contains(2L));
         assertTrue(responseProductIds.contains(3L));
     }
 }

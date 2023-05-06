@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,32 @@ public class SizeFileSystem implements ISizeFileSystem {
                             .productId(cleanRecord(record.get(1)))
                             .backSoon(cleanRecord(record.get(2)))
                             .special(cleanRecord(record.get(3)))
+                            .build()
+            );
+        });
+        return sizes.stream().map(mapper::convert)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * To avoid an extra iteration on productFinder use case, we are going to join stocks with sizes
+     * @param stocks
+     * @return Sizes with stock quantities
+     * @throws IOException
+     */
+    @Override
+    public Set<Size> getAllAndJoin(Map<String, String> stocks) throws IOException {
+        Set<SizeFile> sizes = new HashSet<>();
+        FileReader csvFile = new FileReader(getClass().getClassLoader().getResource(fileName).getPath());
+        Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
+        csvRecords.forEach(record -> {
+            sizes.add(
+                    SizeFile.builder()
+                            .id(cleanRecord(record.get(0)))
+                            .productId(cleanRecord(record.get(1)))
+                            .backSoon(cleanRecord(record.get(2)))
+                            .special(cleanRecord(record.get(3)))
+                            .quantity(Optional.ofNullable(stocks.get(record.get(0))).orElse("0"))
                             .build()
             );
         });

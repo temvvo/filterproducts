@@ -9,6 +9,6 @@ import java.util.Set;
 public interface ProductService {
 
     Set<Product> getAll() throws IOException;
-    List<Long> getProductsId() throws IOException;
+    List<Long> getVisibleProducts() throws IOException;
 
 }
