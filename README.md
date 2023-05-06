@@ -12,7 +12,7 @@ The second endpoint gets all products:</br>
 GET: /filter-products/api/v1/products
 ![image](https://user-images.githubusercontent.com/16559193/236650459-e7d53db2-2a66-4531-ac79-b597a39984bc.png)
 
-In the first approach due to a misunderstanding with the recruiter, csv files were migrated into a H2 database(with Flyway) instead of reading each file to solve the challenge. However I didn't delete it, if you want, you can take a look at the migration implemented.
+In the first approach due to a misunderstanding with the recruiter, csv files were migrated into a H2 database(with Flyway) instead of reading each file to solve the challenge. However I didn't delete it, if you want, you can take a look at the implemented migrtation.
 
 
 
