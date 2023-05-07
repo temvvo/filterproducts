@@ -14,6 +14,10 @@ GET: /filter-products/api/v1/products
 
 In the first approach due to a misunderstanding with the recruiter, csv files were migrated into a H2 database(with Flyway) instead of reading each file to solve the challenge. However I didn't delete it, if you want, you can take a look at the implemented migrtation.
 
+All tests ar runing:
+![image](https://user-images.githubusercontent.com/16559193/236660365-2a3ffa59-d7f8-4acf-afb2-2a659160db4c.png)
+
+
 
 
 
