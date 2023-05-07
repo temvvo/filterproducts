@@ -4,15 +4,10 @@ import com.ecommerce.filterproducts.domain.model.Product;
 import com.ecommerce.filterproducts.domain.port.file.system.IProductFileSystem;
 import com.ecommerce.filterproducts.infrastructure.adapter.file.system.mapper.ProductFileMapper;
 import com.ecommerce.filterproducts.infrastructure.adapter.file.system.model.ProductFile;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ResourceLoader;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,14 +25,14 @@ public class ProductFileSystem implements IProductFileSystem {
     public Set<Product> getAll() throws IOException {
         Set<ProductFile> products = new HashSet<>();
         Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
-        csvRecords.forEach(record -> {
+        csvRecords.forEach(record ->
             products.add(
                     ProductFile.builder()
                             .id(cleanRecord(record.get(0)))
                             .sequence(cleanRecord(record.get(1)))
                             .build()
-                    );
-        });
+                    )
+        );
         return products.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
     }

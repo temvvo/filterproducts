@@ -27,14 +27,14 @@ public class StockFileSystem implements IStockFileSystem {
     public Set<Stock> getAll() throws IOException {
         Set<StockFile> stocks = new HashSet<>();
         Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
-        csvRecords.forEach(record -> {
+        csvRecords.forEach(record ->
             stocks.add(
                     StockFile.builder()
                             .sizeId(cleanRecord(record.get(0)))
                             .quantity(cleanRecord(record.get(1)))
                             .build()
-            );
-        });
+            )
+        );
         return stocks.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
     }
@@ -43,9 +43,7 @@ public class StockFileSystem implements IStockFileSystem {
     public Map<String,String> getAllMapped() throws IOException {
         Map<String, String> stocks = new HashMap<>();
         Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
-        csvRecords.forEach(record -> {
-            stocks.put(cleanRecord(record.get(0)), cleanRecord(record.get(1)));
-        });
+        csvRecords.forEach(record -> stocks.put(cleanRecord(record.get(0)), cleanRecord(record.get(1))));
         return stocks;
     }
 

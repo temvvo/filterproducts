@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Optional;
 
 public class FileSystemUtils {
     public static String cleanRecord(String record) {
@@ -13,7 +14,8 @@ public class FileSystemUtils {
     }
 
     public static Iterable<CSVRecord> getCsvRecords(String fileName) throws IOException {
-        String path = FileSystemUtils.class.getClassLoader().getResource(fileName) == null ? fileName: FileSystemUtils.class.getClassLoader().getResource(fileName).getPath();
+        String path = Optional.ofNullable(FileSystemUtils.class.getClassLoader().getResource(fileName).getPath())
+                .orElse(fileName);
         FileReader csvFile = new FileReader(path);
         Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
         return csvRecords;

@@ -28,9 +28,8 @@ public class SizeFileSystem implements ISizeFileSystem {
     @Override
     public Set<Size> getAll() throws IOException {
         Set<SizeFile> sizes = new HashSet<>();
-        FileReader csvFile = new FileReader(getClass().getClassLoader().getResource(fileName).getPath());
-        Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
-        csvRecords.forEach(record -> {
+        Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
+        csvRecords.forEach(record ->
             sizes.add(
                     SizeFile.builder()
                             .id(cleanRecord(record.get(0)))
@@ -38,15 +37,15 @@ public class SizeFileSystem implements ISizeFileSystem {
                             .backSoon(cleanRecord(record.get(2)))
                             .special(cleanRecord(record.get(3)))
                             .build()
-            );
-        });
+            )
+        );
         return sizes.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
     }
 
     /**
      * To avoid an extra iteration on productFinder use case, we are going to join stocks with sizes
-     * @param stocks
+     * @param stocks to be joined
      * @return Sizes with stock quantities
      * @throws IOException
      */
@@ -54,7 +53,7 @@ public class SizeFileSystem implements ISizeFileSystem {
     public Set<Size> getAllAndJoin(Map<String, String> stocks) throws IOException {
         Set<SizeFile> sizes = new HashSet<>();
         Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
-        csvRecords.forEach(record -> {
+        csvRecords.forEach(record ->
             sizes.add(
                     SizeFile.builder()
                             .id(cleanRecord(record.get(0)))
@@ -63,8 +62,8 @@ public class SizeFileSystem implements ISizeFileSystem {
                             .special(cleanRecord(record.get(3)))
                             .quantity(Optional.ofNullable(stocks.get(record.get(0))).orElse("0"))
                             .build()
-            );
-        });
+            )
+        );
         return sizes.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
     }
