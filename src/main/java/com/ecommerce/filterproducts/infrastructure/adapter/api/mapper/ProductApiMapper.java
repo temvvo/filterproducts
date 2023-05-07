@@ -13,7 +13,4 @@ public interface ProductApiMapper {
     Product convert(ProductDto dto);
 
     ProductDto convert(Product entity);
-
-    @Mapping(target = "sequence", ignore = true)
-    ProductDto reduce(Product entity);
 }

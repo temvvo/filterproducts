@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.ecommerce.filterproducts.infrastructure.adapter.file.system.util.FileSystemUtils.cleanRecord;
+import static com.ecommerce.filterproducts.infrastructure.adapter.file.system.util.FileSystemUtils.getCsvRecords;
 
 public class SizeFileSystem implements ISizeFileSystem {
     private final SizeFileMapper mapper = Mappers.getMapper(SizeFileMapper.class);
@@ -52,8 +53,7 @@ public class SizeFileSystem implements ISizeFileSystem {
     @Override
     public Set<Size> getAllAndJoin(Map<String, String> stocks) throws IOException {
         Set<SizeFile> sizes = new HashSet<>();
-        FileReader csvFile = new FileReader(getClass().getClassLoader().getResource(fileName).getPath());
-        Iterable<CSVRecord> csvRecords = CSVFormat.EXCEL.parse(csvFile);
+        Iterable<CSVRecord> csvRecords = getCsvRecords(fileName);
         csvRecords.forEach(record -> {
             sizes.add(
                     SizeFile.builder()
@@ -67,5 +67,13 @@ public class SizeFileSystem implements ISizeFileSystem {
         });
         return sizes.stream().map(mapper::convert)
                 .collect(Collectors.toSet());
+    }
+
+    public void setFileName(String s) {
+        this.fileName = s;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }

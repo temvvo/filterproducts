@@ -81,5 +81,9 @@ public class ProductDto {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
+  public Long getSequence() {
+    return sequence;
+  }
 }
 
