@@ -17,7 +17,7 @@ public class FPErrorHandler {
 
         log.error("RestExceptionHandler Exception handler. Server error", e);
 
-        return new ResponseEntity<>("Server Error. ", HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Internal error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = IOException.class)
@@ -25,6 +25,7 @@ public class FPErrorHandler {
 
         log.error("RestExceptionHandler Exception handler. File IO Error", e);
 
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("File IO Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
