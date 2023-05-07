@@ -17,6 +17,9 @@ In the first approach due to a misunderstanding with the recruiter, csv files we
 All tests ar runing:
 ![image](https://user-images.githubusercontent.com/16559193/236660365-2a3ffa59-d7f8-4acf-afb2-2a659160db4c.png)
 
+Coverage:
+![image](https://user-images.githubusercontent.com/16559193/236661148-e0bf0558-5d68-4cd4-9cf7-d0965f6d1967.png)
+![image](https://user-images.githubusercontent.com/16559193/236661188-41e92d5f-8b58-4b8b-a723-308ca1d91a79.png)
 
 
 
